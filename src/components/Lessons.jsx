@@ -34,6 +34,48 @@ const Lessons = () => {
 
   const lessons = [
     {
+      id: 0,
+      title: 'Dutch Alphabet & Pronunciation',
+      description: 'Learn the Dutch alphabet, pronunciations, and special sounds',
+      content: [
+        {
+          subtitle: 'Vowels and Their Sounds',
+          examples: [
+            { dutch: 'a', english: 'like "ah" in "father"', usage: 'kat (cat), dag (day)' },
+            { dutch: 'aa', english: 'longer "ah" sound', usage: 'maan (moon), gaan (to go)' },
+            { dutch: 'e', english: 'like "e" in "bed"', usage: 'pet (cap), weg (way)' },
+            { dutch: 'ee', english: 'like "ay" in "say"', usage: 'zee (sea), twee (two)' },
+            { dutch: 'i', english: 'like "i" in "sit"', usage: 'vis (fish), dit (this)' },
+            { dutch: 'ie', english: 'like "ee" in "see"', usage: 'ziek (sick), niet (not)' },
+            { dutch: 'o', english: 'like "o" in "hot"', usage: 'pot (pot), op (on)' },
+            { dutch: 'oo', english: 'like "o" in "go"', usage: 'boot (boat), rood (red)' },
+            { dutch: 'u', english: 'like "u" in "put"', usage: 'bus (bus), nut (use)' },
+            { dutch: 'uu', english: 'like "u" in French "tu"', usage: 'muur (wall), vuur (fire)' }
+          ]
+        },
+        {
+          subtitle: 'Special Vowel Combinations',
+          examples: [
+            { dutch: 'ei/ij', english: 'like "i" in "fine"', usage: 'tijd/teid (time), wijn (wine)' },
+            { dutch: 'eu', english: 'like "u" in French "deux"', usage: 'leuk (fun), neus (nose)' },
+            { dutch: 'oe', english: 'like "oo" in "boot"', usage: 'boek (book), koek (cookie)' },
+            { dutch: 'ui', english: 'unique Dutch sound, like "ow" + "ee"', usage: 'huis (house), muis (mouse)' },
+            { dutch: 'ou/au', english: 'like "ow" in "now"', usage: 'koud/auto (cold/car)' }
+          ]
+        },
+        {
+          subtitle: 'Consonants with Special Pronunciation',
+          examples: [
+            { dutch: 'g/ch', english: 'guttural sound, like clearing throat', usage: 'goed (good), acht (eight)' },
+            { dutch: 'sch', english: 'like "s" + guttural "ch"', usage: 'school (school), schip (ship)' },
+            { dutch: 'v', english: 'softer than English "v"', usage: 'veel (much), vis (fish)' },
+            { dutch: 'w', english: 'like "v" but with rounded lips', usage: 'water (water), werk (work)' },
+            { dutch: 'j', english: 'like "y" in "yes"', usage: 'ja (yes), jong (young)' }
+          ]
+        }
+      ]
+    },
+    {
       id: 1,
       title: 'Basic Greetings',
       description: 'Learn common Dutch greetings and introductions',
@@ -58,8 +100,8 @@ const Lessons = () => {
       ]
     },
     {
-      id: 2,
-      title: 'Numbers and Counting',
+        id: 2,
+        title: 'Numbers and Counting',
       description: 'Master counting in Dutch',
       content: [
         {
@@ -82,8 +124,8 @@ const Lessons = () => {
       ]
     },
     {
-      id: 3,
-      title: 'Essential Phrases',
+        id: 3,
+        title: 'Essential Phrases',
       description: 'Learn everyday Dutch expressions',
       content: [
         {
@@ -105,8 +147,8 @@ const Lessons = () => {
       ]
     },
     {
-      id: 4,
-      title: 'Basic Grammar',
+        id: 4,
+        title: 'Basic Grammar',
       description: 'Learn fundamental Dutch grammar rules',
       content: [
         {
@@ -130,8 +172,8 @@ const Lessons = () => {
       ]
     },
     {
-      id: 5,
-      title: 'Daily Activities',
+        id: 5,
+        title: 'Daily Activities',
       description: 'Learn to talk about everyday activities',
       content: [
         {
@@ -154,8 +196,8 @@ const Lessons = () => {
       ]
     },
     {
-      id: 6,
-      title: 'Useful Questions',
+        id: 6,
+        title: 'Useful Questions',
       description: 'Learn how to ask common questions in Dutch',
       content: [
         {

@@ -14,7 +14,7 @@ const App = () => {
       <div className="min-h-screen flex flex-col bg-gray-50">
         <Navigation />
         <Suspense fallback={<div className="flex items-center justify-center min-h-screen">Loading...</div>}>
-          <main className="container mx-auto flex-grow px-4">
+            <main className="container mx-auto flex-grow px-4 pt-20">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/lessons" element={<Lessons />} />

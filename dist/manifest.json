@@ -1,0 +1,17 @@
+{
+	"name": "Dutch Learning",
+	"short_name": "DL",
+	"description": "Learn Dutch language with interactive lessons, quizzes, and vocabulary tools",
+	"start_url": "/",
+	"display": "standalone",
+	"background_color": "#FFFFFF",
+	"theme_color": "#AE1C28",
+	"icons": [
+		{
+			"src": "/favicon.svg",
+			"sizes": "48x48 72x72 96x96 128x128 256x256 512x512",
+			"type": "image/svg+xml",
+			"purpose": "any maskable"
+		}
+	]
+}
