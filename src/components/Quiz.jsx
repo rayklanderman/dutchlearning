@@ -59,53 +59,53 @@ const Quiz = () => {
       correct: 1
     },
     {
-      question: 'How do you say "Good night" in Dutch?',
-      options: ['Bonne nuit', 'Welterusten', 'Buenas noches', 'Good night'],
+      question: 'How do you say "Water" in Dutch?',
+      options: ['Agua', 'Water', 'Eau', 'Wasser'],
       correct: 1
     },
     {
-      question: 'What is "Sorry" in Dutch?',
-      options: ['Sorry', 'Pardon', 'Het spijt me', 'All of these'],
-      correct: 3
-    },
-    {
-      question: 'How do you say "What is your name?" in Dutch?',
-      options: ['Wat is je naam?', 'Comment tu t\'appelles?', '¿Cómo te llamas?', 'What\'s your name?'],
-      correct: 0
-    },
-    {
-      question: 'What is "Water" in Dutch?',
-      options: ['Eau', 'Agua', 'Water', 'Wasser'],
-      correct: 2
-    },
-    {
-      question: 'How do you say "I don\'t understand" in Dutch?',
-      options: ['Ik begrijp het niet', 'Je ne comprends pas', 'No entiendo', 'I don\'t understand'],
-      correct: 0
-    },
-    {
-      question: 'What is "Excuse me" in Dutch?',
-      options: ['Excusez-moi', 'Pardon', 'Perdón', 'Sorry'],
+      question: 'What is "Coffee" in Dutch?',
+      options: ['Café', 'Koffie', 'Caffè', 'Kaffee'],
       correct: 1
     },
     {
-      question: 'How do you say "Good afternoon" in Dutch?',
-      options: ['Bon après-midi', 'Goedemiddag', 'Buenas tardes', 'Good afternoon'],
+      question: 'How do you say "Bread" in Dutch?',
+      options: ['Pan', 'Brood', 'Pain', 'Brot'],
       correct: 1
     },
     {
-      question: 'What is "My name is..." in Dutch?',
-      options: ['Je m\'appelle...', 'Ik heet...', 'Me llamo...', 'My name is...'],
+      question: 'What is "Cheese" in Dutch?',
+      options: ['Fromage', 'Kaas', 'Queso', 'Käse'],
       correct: 1
     },
     {
-      question: 'How do you say "Nice to meet you" in Dutch?',
-      options: ['Enchanté', 'Aangenaam', 'Mucho gusto', 'Nice to meet you'],
+      question: 'How do you say "Milk" in Dutch?',
+      options: ['Lait', 'Melk', 'Leche', 'Milch'],
       correct: 1
     },
     {
-      question: 'What is "See you later" in Dutch?',
-      options: ['À plus tard', 'Tot ziens', 'Hasta luego', 'See you'],
+      question: 'What is "Apple" in Dutch?',
+      options: ['Pomme', 'Appel', 'Manzana', 'Apfel'],
+      correct: 1
+    },
+    {
+      question: 'How do you say "Sandwich" in Dutch?',
+      options: ['Sandwich', 'Boterham', 'Sandwich', 'Sandwich'],
+      correct: 1
+    },
+    {
+      question: 'What is "Red" in Dutch?',
+      options: ['Rouge', 'Rood', 'Rojo', 'Rot'],
+      correct: 1
+    },
+    {
+      question: 'How do you say "Blue" in Dutch?',
+      options: ['Bleu', 'Blauw', 'Azul', 'Blau'],
+      correct: 1
+    },
+    {
+      question: 'What is "Green" in Dutch?',
+      options: ['Vert', 'Groen', 'Verde', 'Grün'],
       correct: 1
     }
   ];
@@ -121,83 +121,109 @@ const Quiz = () => {
 
     setTimeout(() => {
       setShowFeedback(false);
-      if (currentQuestion + 1 < questions.length) {
+      if (currentQuestion < questions.length - 1) {
         setCurrentQuestion(currentQuestion + 1);
       } else {
         setShowScore(true);
       }
-    }, 2000);
+    }, 1500);
   };
 
-  const handleSkip = () => {
-    if (currentQuestion + 1 < questions.length) {
-      setCurrentQuestion(currentQuestion + 1);
-    } else {
-      setShowScore(true);
-    }
-  };
-
-  const resetQuiz = () => {
+  const restartQuiz = () => {
     setCurrentQuestion(0);
     setScore(0);
     setShowScore(false);
     setShowFeedback(false);
+    setIsCorrect(false);
   };
 
-  return (
-    <div className="flex flex-col items-center min-h-screen pt-20 pb-8 px-4">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Dutch Quiz</h1>
-      {showScore ? (
-        <div className="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md text-center">
-          <h2 className="text-2xl font-bold mb-4">Quiz Complete!</h2>
-          <p className="text-xl mb-6">Your score: {score} out of {questions.length}</p>
+  if (showScore) {
+    return (
+      <div className="min-h-[60vh] flex items-center justify-center">
+        <div className="bg-white p-8 rounded-lg shadow-lg text-center space-y-6 max-w-lg w-full">
+          <h2 className="text-3xl font-bold text-gray-800">Quiz Complete!</h2>
+          <p className="text-xl text-gray-600">
+            You scored {score} out of {questions.length} ({(score / questions.length * 100).toFixed(0)}%)
+          </p>
+          <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
+            <div
+              className="bg-blue-600 h-4 rounded-full"
+              style={{ width: `${(score / questions.length * 100).toFixed(0)}%` }}
+            ></div>
+          </div>
+          <div className="text-lg text-gray-600">
+            {score === questions.length ? (
+              <p>Perfect score! You're a Dutch language master! 🎉</p>
+            ) : score >= questions.length * 0.9 ? (
+              <p>Excellent! You're almost perfect! 🌟</p>
+            ) : score >= questions.length * 0.7 ? (
+              <p>Great job! Keep practicing to improve further! 👏</p>
+            ) : score >= questions.length * 0.5 ? (
+              <p>Good effort! You're making progress! 💪</p>
+            ) : (
+              <p>Keep practicing! You'll get better with time! 📚</p>
+            )}
+          </div>
           <button
-            onClick={resetQuiz}
-            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+            onClick={restartQuiz}
+            className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Try Again
           </button>
         </div>
-      ) : (
-        <div className="w-full max-w-2xl bg-white p-6 rounded-lg shadow-md">
-          <div className="mb-4 flex justify-between items-center">
-            <h2 className="text-xl font-semibold text-gray-800">
-              Question {currentQuestion + 1} of {questions.length}
-            </h2>
-            <span className="text-gray-600">Score: {score}</span>
-          </div>
-          <p className="text-lg mb-6">{questions[currentQuestion].question}</p>
-          {showFeedback && (
-            <div className={`p-4 mb-6 rounded-lg text-center ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-              <p className="font-semibold mb-1">{isCorrect ? 'Correct!' : 'Incorrect'}</p>
-              {!isCorrect && (
-                <p>The correct answer is: {questions[currentQuestion].options[questions[currentQuestion].correct]}</p>
-              )}
-            </div>
-          )}
-          <div className="grid gap-4 mb-6">
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-8">
+      <div className="flex justify-between items-center">
+        <h1 className="text-3xl font-bold text-gray-900">Dutch Language Quiz</h1>
+        <div className="text-lg font-medium text-gray-600">
+          Question {currentQuestion + 1} of {questions.length}
+        </div>
+      </div>
+
+      <div className="bg-white p-6 rounded-lg shadow-lg space-y-6">
+        <div className="space-y-4">
+          <h2 className="text-xl font-medium text-gray-800">
+            {questions[currentQuestion].question}
+          </h2>
+          <div className="grid gap-4">
             {questions[currentQuestion].options.map((option, index) => (
               <button
                 key={index}
-                className="p-4 text-left bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors disabled:opacity-50"
                 onClick={() => handleAnswerClick(index)}
                 disabled={showFeedback}
+                className={`p-4 text-left rounded-lg border transition-all ${showFeedback
+                  ? index === questions[currentQuestion].correct
+                    ? 'bg-green-100 border-green-500 text-green-700'
+                    : 'bg-red-100 border-red-500 text-red-700'
+                  : 'hover:bg-gray-50 border-gray-200 text-gray-700 hover:border-blue-500'}`}
               >
                 {option}
               </button>
             ))}
           </div>
-          <div className="flex justify-center">
-            <button
-              onClick={handleSkip}
-              className="bg-gray-500 text-white px-6 py-2 rounded-lg hover:bg-gray-600 transition-colors disabled:opacity-50"
-              disabled={showFeedback}
-            >
-              Skip Question
-            </button>
-          </div>
         </div>
-      )}
+
+        {showFeedback && (
+          <div className={`p-4 rounded-lg ${isCorrect ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700'}`}>
+            {isCorrect ? 'Correct! 🎉' : 'Incorrect. Try again! 💪'}
+          </div>
+        )}
+
+        <div className="flex justify-between items-center text-sm text-gray-600">
+          <div>Score: {score}</div>
+          <div>Progress: {Math.round((currentQuestion / questions.length) * 100)}%</div>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2">
+          <div
+            className="bg-blue-600 h-2 rounded-full"
+            style={{ width: `${((currentQuestion + 1) / questions.length * 100).toFixed(0)}%` }}
+          ></div>
+        </div>
+      </div>
     </div>
   );
 };

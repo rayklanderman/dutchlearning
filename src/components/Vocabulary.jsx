@@ -1,159 +1,152 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import aiService from '../services/aiService';
+import { vocabularyList } from '../data/vocabularyData';
+import { exampleSentences } from '../data/exampleSentences';
+
+const categories = ['All', 'Greetings', 'Common Phrases', 'Numbers', 'Food & Drinks', 'Days & Time', 'Colors', 'Family', 'Weather'];
 
 const Vocabulary = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedWord, setSelectedWord] = useState(null);
+  const [filteredList, setFilteredList] = useState([]);
+  const [error, setError] = useState(null);
+  const [loadingExamples, setLoadingExamples] = useState({});
+  const [errorMessages, setErrorMessages] = useState({});
 
-  const vocabularyList = [
-    // Greetings
-    { dutch: 'Hallo', english: 'Hello', category: 'Greetings' },
-    { dutch: 'Goedemorgen', english: 'Good morning', category: 'Greetings' },
-    { dutch: 'Goedemiddag', english: 'Good afternoon', category: 'Greetings' },
-    { dutch: 'Goedenavond', english: 'Good evening', category: 'Greetings' },
-    { dutch: 'Welterusten', english: 'Good night', category: 'Greetings' },
-    { dutch: 'Doei', english: 'Bye', category: 'Greetings' },
-    { dutch: 'Tot ziens', english: 'See you later', category: 'Greetings' },
-
-    // Common Phrases
-    { dutch: 'Dank je wel', english: 'Thank you', category: 'Common Phrases' },
-    { dutch: 'Alstublieft', english: 'Please', category: 'Common Phrases' },
-    { dutch: 'Graag gedaan', english: 'You\'re welcome', category: 'Common Phrases' },
-    { dutch: 'Het spijt me', english: 'I\'m sorry', category: 'Common Phrases' },
-    { dutch: 'Geen probleem', english: 'No problem', category: 'Common Phrases' },
-    { dutch: 'Hoe gaat het?', english: 'How are you?', category: 'Common Phrases' },
-    { dutch: 'Prima, dank je', english: 'Fine, thank you', category: 'Common Phrases' },
-
-    // Numbers
-    { dutch: 'Een', english: 'One', category: 'Numbers' },
-    { dutch: 'Twee', english: 'Two', category: 'Numbers' },
-    { dutch: 'Drie', english: 'Three', category: 'Numbers' },
-    { dutch: 'Vier', english: 'Four', category: 'Numbers' },
-    { dutch: 'Vijf', english: 'Five', category: 'Numbers' },
-    { dutch: 'Zes', english: 'Six', category: 'Numbers' },
-    { dutch: 'Zeven', english: 'Seven', category: 'Numbers' },
-    { dutch: 'Acht', english: 'Eight', category: 'Numbers' },
-    { dutch: 'Negen', english: 'Nine', category: 'Numbers' },
-    { dutch: 'Tien', english: 'Ten', category: 'Numbers' },
-
-    // Food and Drinks
-    { dutch: 'Water', english: 'Water', category: 'Food & Drinks' },
-    { dutch: 'Koffie', english: 'Coffee', category: 'Food & Drinks' },
-    { dutch: 'Thee', english: 'Tea', category: 'Food & Drinks' },
-    { dutch: 'Brood', english: 'Bread', category: 'Food & Drinks' },
-    { dutch: 'Kaas', english: 'Cheese', category: 'Food & Drinks' },
-    { dutch: 'Melk', english: 'Milk', category: 'Food & Drinks' },
-    { dutch: 'Appel', english: 'Apple', category: 'Food & Drinks' },
-    { dutch: 'Boterham', english: 'Sandwich', category: 'Food & Drinks' },
-
-    // Days of the Week
-    { dutch: 'Maandag', english: 'Monday', category: 'Days & Time' },
-    { dutch: 'Dinsdag', english: 'Tuesday', category: 'Days & Time' },
-    { dutch: 'Woensdag', english: 'Wednesday', category: 'Days & Time' },
-    { dutch: 'Donderdag', english: 'Thursday', category: 'Days & Time' },
-    { dutch: 'Vrijdag', english: 'Friday', category: 'Days & Time' },
-    { dutch: 'Zaterdag', english: 'Saturday', category: 'Days & Time' },
-    { dutch: 'Zondag', english: 'Sunday', category: 'Days & Time' },
-
-    // Colors
-    { dutch: 'Rood', english: 'Red', category: 'Colors' },
-    { dutch: 'Blauw', english: 'Blue', category: 'Colors' },
-    { dutch: 'Groen', english: 'Green', category: 'Colors' },
-    { dutch: 'Geel', english: 'Yellow', category: 'Colors' },
-    { dutch: 'Zwart', english: 'Black', category: 'Colors' },
-    { dutch: 'Wit', english: 'White', category: 'Colors' },
-    { dutch: 'Oranje', english: 'Orange', category: 'Colors' },
-    { dutch: 'Paars', english: 'Purple', category: 'Colors' },
-
-    // Family
-    { dutch: 'Moeder', english: 'Mother', category: 'Family' },
-    { dutch: 'Vader', english: 'Father', category: 'Family' },
-    { dutch: 'Zus', english: 'Sister', category: 'Family' },
-    { dutch: 'Broer', english: 'Brother', category: 'Family' },
-    { dutch: 'Oma', english: 'Grandmother', category: 'Family' },
-    { dutch: 'Opa', english: 'Grandfather', category: 'Family' },
-    { dutch: 'Kind', english: 'Child', category: 'Family' },
-    { dutch: 'Familie', english: 'Family', category: 'Family' },
-
-    // Weather
-    { dutch: 'Zon', english: 'Sun', category: 'Weather' },
-    { dutch: 'Regen', english: 'Rain', category: 'Weather' },
-    { dutch: 'Wind', english: 'Wind', category: 'Weather' },
-    { dutch: 'Sneeuw', english: 'Snow', category: 'Weather' },
-    { dutch: 'Warm', english: 'Warm', category: 'Weather' },
-    { dutch: 'Koud', english: 'Cold', category: 'Weather' },
-    { dutch: 'Bewolkt', english: 'Cloudy', category: 'Weather' },
-    { dutch: 'Zonnig', english: 'Sunny', category: 'Weather' }
-    ];
-
-  const categories = ['All', ...new Set(vocabularyList.map(word => word.category))];
-  const filteredList = vocabularyList
-    .filter(word => selectedCategory === 'All' || word.category === selectedCategory)
-    .filter(word => 
-      searchTerm === '' || 
-      word.dutch.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      word.english.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    const filtered = vocabularyList.filter(item => 
+      (selectedCategory === 'All' || item.category === selectedCategory) &&
+      (searchTerm === '' || 
+        item.dutch.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.english.toLowerCase().includes(searchTerm.toLowerCase())
+      )
     );
+    setFilteredList(filtered);
+  }, [selectedCategory, searchTerm]);
 
-  return (
-    <div className="flex flex-col items-center min-h-screen pt-20 pb-8 px-4">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-6">Dutch Vocabulary</h1>
-      <div className="w-full max-w-4xl">
-        <div className="mb-4">
-          <input
-          type="text"
-          placeholder="Search words in Dutch or English..."
-          className="w-full p-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          />
+  const generateExamples = async (word) => {
+    setLoadingExamples(prev => ({ ...prev, [word]: true }));
+    setErrorMessages(prev => ({ ...prev, [word]: '' }));
+    
+    try {
+      const prompt = `Generate 2 example sentences in Dutch using the word "${word}" with English translations in parentheses`;
+      const response = await aiService.generateExplanation(prompt);
+      
+      if (response) {
+        const examples = response.split('\n').filter(line => line.trim() !== '');
+        setExampleSentences(prev => ({
+          ...prev,
+          [word]: examples
+        }));
+      }
+    } catch (error) {
+      setErrorMessages(prev => ({
+        ...prev,
+        [word]: 'Failed to generate examples. Please try again.'
+      }));
+    } finally {
+      setLoadingExamples(prev => ({ ...prev, [word]: false }));
+    }
+  };
+
+  const handleWordClick = (word) => {
+    setSelectedWord(word === selectedWord ? null : word);
+  };
+
+  const renderContent = () => {
+    if (filteredList.length === 0) {
+      return (
+        <div className="text-center py-8">
+          <p className="text-gray-600">No vocabulary items found matching your criteria.</p>
         </div>
-        <div className="mb-4 text-gray-600">
-          Showing {filteredList.length} {filteredList.length === 1 ? 'word' : 'words'}
-          {selectedCategory !== 'All' && ` in ${selectedCategory}`}
-          {searchTerm && ` matching "${searchTerm}"`}
-        </div>
-        <div className="mb-6 flex justify-center space-x-4 flex-wrap gap-2">
-          {categories.map(category => (
-            <button
-              key={category}
-              onClick={() => setSelectedCategory(category)}
-              className={`px-4 py-2 rounded-lg transition-colors ${
-                selectedCategory === category
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {category}
-            </button>
-          ))}
-        </div>
-        <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dutch</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">English</th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Category</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-gray-200">
-                {filteredList.map((word, index) => (
-                <tr key={index} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-blue-600 font-medium">{word.dutch}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-600">{word.english}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-gray-500">{word.category}</td>
-                </tr>
-                ))}
-              </tbody>
-              </table>
-              {filteredList.length === 0 && (
-              <div className="p-6 text-center text-gray-500">
-                No words found matching your search criteria
+      );
+    }
+
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {filteredList.map((item, index) => (
+          <div key={index} className="bg-white p-4 rounded-lg shadow hover:shadow-md transition-shadow">
+            <div className="flex justify-between items-start mb-2">
+              <div>
+                <h3 className="text-lg font-semibold text-gray-800">{item.dutch}</h3>
+                <p className="text-gray-600">{item.english}</p>
               </div>
+              <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded">{item.category}</span>
+            </div>
+            <div className="mt-2 space-y-2">
+              {exampleSentences[item.dutch] && (
+                <div className="bg-blue-50 p-2 rounded">
+                  {exampleSentences[item.dutch].map((example, i) => (
+                    <p key={i} className="text-sm text-gray-700 mb-1 last:mb-0">{example}</p>
+                  ))}
+                </div>
+              )}
+              <button
+                onClick={() => generateExamples(item.dutch)}
+                disabled={loadingExamples[item.dutch]}
+                className="text-sm text-blue-600 hover:text-blue-800 focus:outline-none flex items-center"
+              >
+                {loadingExamples[item.dutch] ? (
+                  <>
+                    <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-blue-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    Generating...
+                  </>
+                ) : (
+                  'Generate More Examples with AI'
+                )}
+              </button>
+              {errorMessages[item.dutch] && (
+                <p className="text-sm text-red-600">{errorMessages[item.dutch]}</p>
               )}
             </div>
-            </div>
+            <button
+              onClick={() => handleWordClick(item.dutch)}
+              className="mt-2 text-sm text-blue-600 hover:text-blue-800 focus:outline-none"
+            >
+              {selectedWord === item.dutch ? 'Hide example' : 'Show example'}
+            </button>
           </div>
+        ))}
+      </div>
+    );
+  };
+
+  return (
+    <div className="space-y-6">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
+        <h1 className="text-3xl font-bold text-gray-900">Dutch Vocabulary</h1>
+        <div className="flex gap-4 w-full sm:w-auto">
+          <select
+            value={selectedCategory}
+            onChange={(e) => setSelectedCategory(e.target.value)}
+            className="block w-full sm:w-auto rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          >
+            {categories.map(category => (
+              <option key={category} value={category}>{category}</option>
+            ))}
+          </select>
+          <input
+            type="text"
+            placeholder="Search words..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="block w-full sm:w-64 rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+      </div>
+      
+      {error && (
+        <div className="bg-red-50 border-l-4 border-red-400 p-4 mb-4">
+          <p className="text-red-700">{error}</p>
+        </div>
+      )}
+      
+      {renderContent()}
+    </div>
   );
 };
 
