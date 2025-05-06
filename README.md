@@ -1,81 +1,79 @@
-# Dutch Learning
+# 🇳🇱 Dutch Learning
 
-An interactive Dutch language learning platform built with React and Vite.
+**An interactive Dutch language learning platform designed for learners at beginner and intermediate levels.**  
+Built to make language learning engaging, trackable, and effective — all in a sleek, responsive interface.
 
-## Features
+## 🌟 Features Overview
 
-- Interactive Dutch language lessons with progress tracking
-- Quizzes with instant feedback and progress saving
-- Comprehensive vocabulary section with categorized word lists
-- Mobile-responsive design with modern UI
-- Progress saving functionality using localStorage
-- Interactive navigation with visual feedback
-- Lesson completion tracking
+- 📚 Interactive Dutch lessons with progress tracking  
+- 🧠 Quizzes with instant feedback and saved results  
+- 🗂️ Categorized vocabulary with smart search  
+- 📱 Mobile-responsive design with modern UI  
+- 💾 Saves your learning progress using localStorage  
+- ✨ Visual navigation feedback and smooth transitions  
+- ✅ Lesson completion tracking system
 
-## Tech Stack
+---
 
-- React 18 with Hooks
-- Vite for fast development and building
-- TailwindCSS for styling
-- React Router for navigation
-- Local Storage for progress tracking
-- Vitest for testing
+## 🔍 Features in Detail
 
-## Getting Started
+### 📘 Lessons
 
-1. Clone the repository:
-```bash
-git clone https://github.com/rayklanderman/dutchlearning.git
-```
+- Structured Dutch language modules organized by topic and difficulty
+- Progress tracking for each lesson
+- Interactive examples and explanations
+- Easy navigation across lessons with visual indicators
 
-2. Install dependencies:
-```bash
-npm install
-```
+### 📝 Quiz
 
-3. Run the development server:
-```bash
-npm run dev
-```
+- Multiple-choice quizzes linked to lesson content
+- Instant feedback on correct and incorrect answers
+- Progress is stored in localStorage (offline support)
+- Option to skip questions or revisit later
 
-4. Open http://localhost:3000 in your browser
+### 📖 Vocabulary
 
-## Available Scripts
+- Words organized into categories (e.g., food, travel, verbs)
+- Search bar for quick lookup
+- Track progress for each vocabulary set
+- Clean, intuitive layout for focused learning
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm test` - Run tests
-- `npm run test:ui` - Run tests with UI
-- `npm run coverage` - Generate test coverage report
+---
 
-## Project Structure
+## 💡 Tech Stack
 
-```
-src/
-	├── components/       # React components
-	├── test/            # Test utilities and setup
-	├── App.jsx          # Main application component
-	├── main.jsx         # Application entry point
-	└── index.css        # Global styles
-```
+- **Frontend:** HTML5, CSS3, JavaScript (Vanilla)
+- **State Management:** localStorage
+- **Design:** Responsive and mobile-first
 
-## Features in Detail
+---
 
-### Lessons
-- Structured Dutch language lessons
-- Progress tracking
-- Interactive examples
-- Navigation between lessons
+## 🌐 Live Demo
 
-### Quiz
-- Multiple-choice questions
-- Instant feedback
-- Progress saving
-- Skip and navigation options
+👉 [Visit Dutch Learning](https://dutchlearning.vercel.app/)
 
-### Vocabulary
-- Categorized word lists
-- Search functionality
-- Progress tracking
-- Easy-to-use interface
+---
+
+## 📷 Screenshots (Optional)
+
+> You can add screenshots here if you wish by uploading them to the repo and linking like:  
+> `![Screenshot](./assets/lesson-page.png)`
+
+---
+
+## 📬 Feedback & Contributions
+
+If you'd like to contribute lessons, quizzes, or features — feel free to fork and submit a pull request!  
+Feedback, ideas, or collaboration? Reach out via [LinkedIn](https://www.linkedin.com/in/raymondklanderman/)
+
+---
+
+## 👨‍💻 Author
+
+**R K a.k.a DevRay**  
+AI Engineer • Full-stack Dev • Mobile/Web Dev  
+[🔗 Portfolio](https://ray-klanderman-portfolio-teamdevray.vercel.app/)
+
+---
+
+_“Learning a new language opens up new ways of seeing the world. Let’s make it interactive.”_
